@@ -1,0 +1,3 @@
+package com.tecsup;
+import java.util.*; import org.springframework.web.bind.annotation.*; import jakarta.validation.Valid;
+@RestController @RequestMapping("/api/clientes") public class ClienteController { private final ClienteRepository repo; public ClienteController(ClienteRepository r){repo=r;} @GetMapping public List<Cliente> all(){return repo.findAll();} @GetMapping("/{id}") public Cliente one(@PathVariable Long id){return repo.findById(id).orElseThrow();} @PostMapping public Cliente create(@Valid @RequestBody Cliente c){c.id=null;return repo.save(c);} @PutMapping("/{id}") public Cliente update(@PathVariable Long id,@Valid @RequestBody Cliente c){c.id=id;return repo.save(c);} @DeleteMapping("/{id}") public void delete(@PathVariable Long id){repo.deleteById(id);} }
